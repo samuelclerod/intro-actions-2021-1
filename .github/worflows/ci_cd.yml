@@ -1,0 +1,12 @@
+name: CI_CD
+on:
+  pull-request:
+    branches: [master]
+jobs:
+  test_build_review:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check files
+        run: ls -la
+      - name: Check node version
+        run: node --version
