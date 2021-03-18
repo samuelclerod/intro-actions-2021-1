@@ -6,6 +6,7 @@ jobs:
   test_build_review:
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@v2
       - name: Check files
         run: ls -la
       - name: Check node version
