@@ -19,6 +19,7 @@ jobs:
           node-version: "15"
       - name: resolve dependencies
         run: yarn install --frozen-lockfile
+      - run: ls -la
       - name: test
         run: yarn test -- --coverage
         env:
