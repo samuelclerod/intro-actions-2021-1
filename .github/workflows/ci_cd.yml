@@ -33,9 +33,17 @@ jobs:
         run: yarn test -- --coverage
         env:
           CI: true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: coverage
 
       - name: build
         run: yarn build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
 
       - run: ls -la
 
