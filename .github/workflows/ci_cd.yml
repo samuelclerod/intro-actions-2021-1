@@ -2,6 +2,8 @@ name: CI_CD
 on:
   pull_request:
     branches: [master]
+  push:
+    branches: [master]
 jobs:
   test_build_review:
     runs-on: ubuntu-20.04
@@ -48,6 +50,14 @@ jobs:
       - run: ls -la
 
       - name: deploy to staging
+        if: github.event_name =='pull_request' && github.ref == 'ref/heads/master'
+        run: npx surge --project ./build --domain esii2021-1.samuelclerod.surge.sh
+        env:
+          SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+          SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+
+      - name: deploy to production
+        if: github.event_name =='push' && github.ref == 'ref/heads/master'
         run: npx surge --project ./build --domain esii2021-1.samuelclerod.surge.sh
         env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
