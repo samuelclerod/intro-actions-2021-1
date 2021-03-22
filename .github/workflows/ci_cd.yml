@@ -54,6 +54,12 @@ jobs:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
 
+      - name: Create release
+        if: github.event_name =='push' && github.ref == 'refs/heads/master'
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
       - name: deploy to production
         if: github.event_name =='push' && github.ref == 'refs/heads/master'
         run: npx surge --project ./build --domain samuelclerod-prod.surge.sh
