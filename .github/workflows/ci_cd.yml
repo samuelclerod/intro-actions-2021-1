@@ -54,6 +54,12 @@ jobs:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
 
+      - name: Zip assets
+        if: github.event_name =='push' && github.ref == 'refs/heads/master'
+        run: |
+          zip -r build.zip ./build
+          zip -r coverage.zip ./coverage
+
       - name: Create release
         if: github.event_name =='push' && github.ref == 'refs/heads/master'
         run: npx semantic-release
