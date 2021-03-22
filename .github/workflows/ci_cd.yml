@@ -29,8 +29,6 @@ jobs:
       - name: resolve dependencies
         run: yarn install --frozen-lockfile
 
-      - run: ls -la
-
       - name: test
         run: yarn test -- --coverage
         env:
@@ -38,6 +36,8 @@ jobs:
 
       - name: build
         run: yarn build
+
+      - run: ls -la
 
       - name: deploy to staging
         run: npx surge --project ./build --domain esii2021-1.samuelclerod.surge.sh
